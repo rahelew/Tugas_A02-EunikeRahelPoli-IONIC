@@ -1,20 +1,106 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Ionic Weather App <br> <small>Eunike Rahel Poli</small>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="search">
+    <input class="search-input" [(ngModel)]="searchCity" placeholder="Cari kota..." (keyup.enter)="searchLocation()" (input)="convertToUppercase()">    
+    <button class="search-button" (click)="searchLocation()"><ion-icon slot="start" name="search"></ion-icon>Cari</button>
+</div>
+  <div class ="main">
+    <span class ="city">{{cityName}}</span>
+    <span class="date">{{ todayDate | date: 'EEE, dd MMM - h:mma' }}</span>
   </div>
-</ion-content>
+
+
+  <ion-card class="mula">
+    <ion-card-content>
+        <ion-card-header>
+          <img [src]= "weatherIcon"> <br>
+            <ion-card-title>{{ weatherDescription.toUpperCase() }}</ion-card-title>
+            <ion-card-subtitle>{{(weatherTemp?.temp - 273.15).toFixed(0)}}°</ion-card-subtitle>
+        </ion-card-header>
+    </ion-card-content>
+  </ion-card>
+
+    <div class="details">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-card class="blok-1">
+              <ion-card-content>
+                <ion-card-header>
+                  <ion-row>
+                    <ion-col>
+                      <ion-icon name="thermometer" size="large"></ion-icon>
+                      <ion-card-subtitle><strong>High :</strong> {{ highest }}°C</ion-card-subtitle>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-icon name="thermometer" size="large"></ion-icon>
+                      <ion-card-subtitle><strong>Low :</strong> {{ lowest }}°C</ion-card-subtitle>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-header>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="6">
+            <ion-card class="blok-2">
+              <ion-card-content>
+                <ion-card-header>
+                  <ion-row>
+                    <ion-col>
+                      <ion-icon name="water" size="large"></ion-icon>
+                      <ion-card-subtitle><strong>Humidity :</strong> {{ humidity }}%</ion-card-subtitle>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-icon name="water" size="large"></ion-icon>
+                      <ion-card-subtitle><strong>Pressure :</strong> {{ pressure }}hPa</ion-card-subtitle>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-header>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-card class="blok-3">
+              <ion-card-content>
+                <ion-card-header>
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-icon name="sunny" size="large"></ion-icon>
+                      <ion-card-subtitle><strong>Sunrise</strong> <br> {{ sunrise }}</ion-card-subtitle>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-header>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="6">
+            <ion-card class="blok-4">
+              <ion-card-content>
+                <ion-card-header>
+                  <ion-row>
+                    <ion-col size="12">
+                      <ion-icon name="moon" size="large"></ion-icon>
+                      <ion-card-subtitle><strong>Sunset</strong> <br> {{ sunset }}</ion-card-subtitle>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-header>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  
